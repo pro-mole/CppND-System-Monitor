@@ -90,7 +90,7 @@ long LinuxParser::IdleJiffies() { return 0; }
 vector<string> LinuxParser::CpuUtilization() {
   vector<string> cpuInfo {};
   string line;
-  string header, info;
+  string header;
 
   std::ifstream cpuFile(kProcDirectory + kStatFilename);
   if (cpuFile.is_open())
