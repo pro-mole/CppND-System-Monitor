@@ -5,8 +5,10 @@ class Processor {
  public:
   float Utilization();  // TODO: See src/processor.cpp
 
-  // TODO: Declare any necessary private members
+  // DOING: Declare any necessary private members
  private:
+    int totalCpuTime {0}; // Total System CPU Time
+    int totalIdleTime {0}; // Total System Idle CPU Time
 };
 
 #endif
