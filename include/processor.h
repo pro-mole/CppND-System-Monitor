@@ -7,8 +7,8 @@ class Processor {
 
   // DOING: Declare any necessary private members
  private:
-    int totalCpuTime {0}; // Total System CPU Time
-    int totalIdleTime {0}; // Total System Idle CPU Time
+  int totalCpuTime{0};   // Total System CPU Time
+  int totalIdleTime{0};  // Total System Idle CPU Time
 };
 
 #endif
