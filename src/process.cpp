@@ -20,7 +20,13 @@ Process::Process(int pid)
       ram(LinuxParser::Ram(pid)),
       uptime(LinuxParser::UpTime(pid)) {
   // Parse data from the /proc file to figure the CPU usage
+  vector<std::string> procData = LinuxParser::CpuUtilization(pid);
+
+  double processTime = std::stol(procData[LinuxParser::kUTime]) + std::stol(procData[LinuxParser::kSTime]);
+  
+  this->cpu = (processTime / sysconf(_SC_CLK_TCK) / this->uptime);
 }
+
 // DONE: Return this process's ID
 int Process::Pid() { return this->pID; }
 
