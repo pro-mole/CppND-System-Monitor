@@ -35,13 +35,13 @@ string LinuxParser::OperatingSystem() {
 
 // DONE: An example of how to read data from the filesystem
 string LinuxParser::Kernel() {
-  string os, kernel;
+  string os, version, kernel;
   string line;
   std::ifstream stream(kProcDirectory + kVersionFilename);
   if (stream.is_open()) {
     std::getline(stream, line);
     std::istringstream linestream(line);
-    linestream >> os >> kernel;
+    linestream >> os >> version >> kernel;
   }
   return kernel;
 }
@@ -74,20 +74,16 @@ float LinuxParser::MemoryUtilization() {
   float memTotal, memFree;
 
   std::ifstream memFile(kProcDirectory + kMeminfoFilename);
-  if (memFile.is_open())
-  {
-    while (std::getline(memFile, line))
-    {
+  if (memFile.is_open()) {
+    while (std::getline(memFile, line)) {
       std::istringstream lineStream(line);
       lineStream >> header;
 
-      if (header == "MemTotal:")
-      {
+      if (header == "MemTotal:") {
         lineStream >> memTotal;
       }
 
-      if (header == "MemFree:")
-      {
+      if (header == "MemFree:") {
         lineStream >> memFree;
       }
     }
@@ -115,22 +111,19 @@ long LinuxParser::IdleJiffies() { return 0; }
 // Read and return CPU utilization
 // Returns a vector of 10 numbers, representing the CPU time components
 vector<string> LinuxParser::CpuUtilization() {
-  vector<string> cpuInfo {};
+  vector<string> cpuInfo{};
   string line;
   string header;
 
   std::ifstream cpuFile(kProcDirectory + kStatFilename);
-  if (cpuFile.is_open())
-  {
-    while (std::getline(cpuFile, line))
-    {
+  if (cpuFile.is_open()) {
+    while (std::getline(cpuFile, line)) {
       std::istringstream lineStream(line);
       lineStream >> header;
-      if (header == "cpu") //Match CPU line
+      if (header == "cpu")  // Match CPU line
       {
         string value;
-        while (!lineStream.eof())
-        {
+        while (!lineStream.eof()) {
           lineStream >> value;
           cpuInfo.push_back(value);
         }
