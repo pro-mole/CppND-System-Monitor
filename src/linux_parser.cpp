@@ -147,8 +147,28 @@ vector<string> LinuxParser::CpuUtilization() {
     }
   }
 
-  cpuFile.close();
   return cpuInfo;
+}
+
+// Read and return CPU Utilization by a process
+// Returns a vector of numbers
+vector<string> LinuxParser::CpuUtilization(int pid) {
+  vector<string> procData {};
+
+  std::ifstream statFile(kProcDirectory + std::to_string(pid) + kStatFilename);
+  if (statFile.is_open()) {
+    std::string line;
+    std::getline(statFile, line);
+
+    std::string value;
+    std::istringstream lineStream(line);
+    while (!lineStream.eof()) {
+      lineStream >> value;
+      procData.push_back(value);
+    }
+  }
+
+  return procData;
 }
 
 // Returns a number identified by a header in the stat file
