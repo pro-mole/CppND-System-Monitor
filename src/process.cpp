@@ -22,8 +22,9 @@ Process::Process(int pid)
   // Parse data from the /proc file to figure the CPU usage
   vector<std::string> procData = LinuxParser::CpuUtilization(pid);
 
-  double processTime = std::stol(procData[LinuxParser::kUTime]) + std::stol(procData[LinuxParser::kSTime]);
-  
+  double processTime = std::stol(procData[LinuxParser::kUTime]) +
+                       std::stol(procData[LinuxParser::kSTime]);
+
   this->cpu = (processTime / sysconf(_SC_CLK_TCK) / this->uptime);
 }
 

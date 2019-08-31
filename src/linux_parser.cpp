@@ -153,7 +153,7 @@ vector<string> LinuxParser::CpuUtilization() {
 // Read and return CPU Utilization by a process
 // Returns a vector of numbers
 vector<string> LinuxParser::CpuUtilization(int pid) {
-  vector<string> procData {};
+  vector<string> procData{};
 
   std::ifstream statFile(kProcDirectory + std::to_string(pid) + kStatFilename);
   if (statFile.is_open()) {
@@ -226,7 +226,7 @@ string LinuxParser::Ram(int pid) {
 
       if (header == "VmSize:") {
         // Convert memory usage to MiB
-        long memory {0};
+        long memory{0};
         lineStream >> memory;
 
         return std::to_string(memory / 1024);
@@ -284,6 +284,6 @@ string LinuxParser::User(int pid) {
 long LinuxParser::UpTime(int pid) {
   vector<string> procData = LinuxParser::CpuUtilization(pid);
   long startTime = std::stol(procData[ProcessStates::kStartTime]);
-  
+
   return LinuxParser::UpTime() - (startTime / sysconf(_SC_CLK_TCK));
 }
