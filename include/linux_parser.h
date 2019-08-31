@@ -47,6 +47,15 @@ long ActiveJiffies(int pid);
 long IdleJiffies();
 
 // Processes
+enum ProcessStates {
+  kPID = 0,
+  kUTime = 14,
+  kSTime = 15,
+  kCUTime = 16,
+  kCSTime = 17,
+  kStartTime = 22
+};
+std::vector<std::string> CpuUtilization(int pid);
 std::string Command(int pid);
 std::string Ram(int pid);
 std::string Uid(int pid);
