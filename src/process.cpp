@@ -11,7 +11,7 @@ using std::string;
 using std::to_string;
 using std::vector;
 
-// DOING
+// DONE
 // Create a Process instance and initialize the data for its PID
 Process::Process(int pid)
     : pID(pid),
