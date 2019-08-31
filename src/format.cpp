@@ -33,14 +33,23 @@ string Format::ElapsedTime(long seconds) {
   remaining_seconds = remaining_seconds % DAY_IN_SECONDS;
   */
   int hours = remaining_seconds / HOUR_IN_SECONDS;
-  timeString += std::to_string(hours) + ":";
+  if (hours < 10)
+    timeString += "0" + std::to_string(hours) + ":";
+  else
+    timeString += std::to_string(hours) + ":";
 
   remaining_seconds = remaining_seconds % HOUR_IN_SECONDS;
   int minutes = remaining_seconds / 60;
-  timeString += std::to_string(minutes) + ":";
+  if (minutes < 10)
+    timeString += "0" + std::to_string(minutes) + ":";
+  else
+    timeString += std::to_string(minutes) + ":";
 
   remaining_seconds = remaining_seconds % 60;
-  timeString += std::to_string(remaining_seconds);
+  if (remaining_seconds < 10)
+    timeString += "0" + std::to_string(remaining_seconds);
+  else
+    timeString += std::to_string(remaining_seconds);
 
   return timeString;
 }
