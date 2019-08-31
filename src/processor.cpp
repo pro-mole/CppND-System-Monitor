@@ -8,12 +8,15 @@ float Processor::Utilization() {
   std::vector<std::string> cpuStats = LinuxParser::CpuUtilization();
 
   // Split CPU data
-  int user = std::stoi(cpuStats[0]), nice = std::stoi(cpuStats[1]),
-      system = std::stoi(cpuStats[2]), idle = std::stoi(cpuStats[3]),
-      iowait = std::stoi(cpuStats[4]), irq = std::stoi(cpuStats[5]),
-      softirq = std::stoi(cpuStats[6]), steal = std::stoi(cpuStats[7]),
-      guest = std::stoi(cpuStats[8]), guest_nice = std::stoi(cpuStats[9]);
-
+  int user = std::stoi(cpuStats[LinuxParser::CPUStates::kUser_]),
+  nice = std::stoi(cpuStats[LinuxParser::CPUStates::kNice_]),
+  system = std::stoi(cpuStats[LinuxParser::CPUStates::kSystem_]),
+  idle = std::stoi(cpuStats[LinuxParser::CPUStates::kIdle_]),
+  iowait = std::stoi(cpuStats[LinuxParser::CPUStates::kIOwait_]),
+  irq = std::stoi(cpuStats[LinuxParser::CPUStates::kIRQ_]),
+  softirq = std::stoi(cpuStats[LinuxParser::CPUStates::kSoftIRQ_]),
+  steal = std::stoi(cpuStats[LinuxParser::CPUStates::kSteal_]);
+  
   int currentCpuTime =
       user + nice + system + idle + iowait + irq + softirq + steal;
   int currentIdleTime = idle + iowait;
