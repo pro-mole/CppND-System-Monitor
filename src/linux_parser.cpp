@@ -185,7 +185,8 @@ int LinuxParser::RunningProcesses() {
 string LinuxParser::Command(int pid) {
   std::string cmdLine;
 
-  std::ifstream commandFile(kProcDirectory + std::to_string(pid) + kCmdlineFilename);
+  std::ifstream commandFile(kProcDirectory + std::to_string(pid) +
+                            kCmdlineFilename);
   if (commandFile.is_open()) {
     std::getline(commandFile, cmdLine);
     return cmdLine;
@@ -201,7 +202,8 @@ string LinuxParser::Ram(int pid[[maybe_unused]]) { return string(); }
 string LinuxParser::Uid(int pid) {
   std::string line, header, uID;
 
-  std::ifstream statusFile(kProcDirectory + std::to_string(pid) + kStatusFilename);
+  std::ifstream statusFile(kProcDirectory + std::to_string(pid) +
+                           kStatusFilename);
   if (statusFile.is_open()) {
     while (std::getline(statusFile, line)) {
       std::istringstream lineStream(line);
@@ -229,7 +231,7 @@ string LinuxParser::User(int pid) {
 
       std::istringstream userStream(userLine);
       userStream >> username;
-      userStream >> userpasswd; // Throw away
+      userStream >> userpasswd;  // Throw away
       userStream >> userid;
       if (userid == uid) {
         return username;
